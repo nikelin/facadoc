@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>VIO Documentor</name>
+
+    <groupId>com.vio.utils</groupId>
+    <artifactId>documentor</artifactId>
+    <version>0.1.1A</version>
+
+    <build>
+        <defaultGoal>package</defaultGoal>
+        <finalName>documentor</finalName>
+        <sourceDirectory>${basedir}/main/java</sourceDirectory>
+        <directory>${basedir}/build</directory>
+        
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                  <archive>
+                    <manifestFile>${basedir}/main/resources/META-INF/MANIFEST.MF</manifestFile>
+                  </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-assembly-plugin</artifactId>
+              <version>2.2-beta-5</version>
+              <configuration>
+                  <outputDirectory>assemblied</outputDirectory>
+                  <finalName>libs</finalName>
+                  <appendAssemblyId>false</appendAssemblyId>
+                  <descriptorRefs>
+                      <descriptorRef>jar-with-dependencies</descriptorRef>
+                  </descriptorRefs>
+              </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <executable>/usr/bin/javac</executable>
+                    <compilerVersion>1.6_06</compilerVersion>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.vio</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0.0A</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+    </dependencies>
+    
+</project>

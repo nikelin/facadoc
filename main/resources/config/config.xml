@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+
+<config>
+    <engine id="doxygen">
+        <executablePath>/usr/bin/doxygen</executablePath>
+    </engine>
+
+    <engine id="javadoc">
+        <executablePath>/usr/bin/javadoc</executablePath>
+    </engine>
+
+    <engine id="asdoc">
+        <executablePath>/archives/dev/flex/bin/asdoc</executablePath>
+    </engine>
+
+    <parameters-set id="doxygen">
+        <parameter name="ALPHABETICAL_INDEX" value="YES"/>
+        <parameter name="UML_LOOK" value="YES"/>
+        <parameter name="EXTRACT_ALL" value="YES"/>
+        <parameter name="GENERATE_TODOLIST" value="YES"/>
+        <parameter name="SHOW_NAMESPACES" value="NO"/>
+        <parameter name="RECURSIVE" value="YES"/>
+        <parameter name="PROJECT_NUMBER" value="1.0.0A"/>
+        <parameter name="SOURCE_BROWSER" value="YES"/>
+        <parameter name="INLINE_SOURCES" value="YES"/>
+        <parameter name="GENERATE_LATEX" value="NO"/>
+        <parameter name="GENERATE_MAN" value="NO"/>
+        <parameter name="GENERATE_RTF" value="NO"/>
+        <parameter name="JAVADOC_AUTOBRIEF" value="YES"/>
+        <parameter name="CASE_SENSE_NAMES" value="NO"/>
+        <parameter name="QUIET" value="YES"/>
+    </parameters-set>
+
+    <parameters-set id="javadoc">
+        <parameter name="-private"/>
+        <parameter name="-version"/>
+        <parameter name="-author"/>
+        <parameter name="-source" value="1.6"/>
+        <parameter name="-splitindex"/>
+    </parameters-set>
+
+    <project name="com.vio.core">
+        <outputPath>/var/docs/vio/api/app</outputPath>
+        <inputPath>/home/nikelin/workspace/vio/api/com.vio.app/main/java</inputPath>
+        <engine>javadoc</engine>
+        <parameters>
+            <parameter name="-classpath" value="/home/nikelin/workspace/vio/api/build/libs.jar:/home/nikelin/workspace/vio/api/build/messaging.jar:/home/nikelin/workspace/vio/api/build/remoting.jar:/home/nikelin/workspace/vio/api/build/core.jar"/>
+            <parameter name="-subpackages" value="com.vio"/>
+            <parameter name="-doctitle" value="'VIO Core Library'"/>
+            <parameter name="-windowtitle" value="'Cambala Group -> VIO Project'"/>
+            <parameter name="-group" value='\"Application\" \"com.vio.*\"'/>
+            <parameter name="-d" value="/var/docs/vio/app"/>
+            <parameter name="-sourcepath" value="/home/nikelin/workspace/vio/api/com.vio.core/main/java"/>
+            <parameters-set id="javadoc"/>
+        </parameters>
+    </project>
+
+    <project name="com.vio.app">
+        <outputPath>/var/docs/vio/api/app</outputPath>
+        <inputPath>/home/nikelin/workspace/vio/api/com.vio.app/main/java</inputPath>
+        <engine>javadoc</engine>
+        <parameters>
+            <parameter name="-classpath" value="/home/nikelin/workspace/vio/api/build/libs.jar:/home/nikelin/workspace/vio/api/build/messaging.jar:/home/nikelin/workspace/vio/api/build/remoting.jar:/home/nikelin/workspace/vio/api/build/core.jar"/>
+            <parameter name="-subpackages" value="com.vio"/>
+            <parameter name="-doctitle" value="'VIO WebCam Application'"/>
+            <parameter name="-windowtitle" value="'Cambala Group -> VIO Project'"/>
+            <parameter name="-group" value='\"Application\" \"com.vio.*\"'/>
+            <parameter name="-d" value="/var/docs/vio/app"/>
+            <parameter name="-sourcepath" value="/home/nikelin/workspace/vio/api/com.vio.app/main/java"/>
+            <parameters-set id="javadoc"/>
+        </parameters>
+    </project>
+
+    <project name="public">
+        <engine>doxygen</engine>
+        <parameters>
+            <parameter name="PROJECT_NAME" value="VIO WebCam Public Site"/>
+            <parameter name="INPUT" value="/home/nikelin/workspace/vio/client"/>
+            <parameter name="OUTPUT_DIRECTORY" value="/var/docs/vio/public"/>
+            <parameter name="HTML_OUTPUT" value="/var/docs/vio/public" />
+            <parameter name="EXCLUDE" value="/home/nikelin/workspace/vio/client/library"/>
+            <parameters-set id="doxygen"/>
+        </parameters>
+    </project>
+
+    <project name="admin">
+        <engine>doxygen</engine>
+        <parameters>
+            <parameter name="PROJECT_NAME" value="VIO WebCam Admin Site"/>
+            <parameter name="INPUT" value="/home/nikelin/workspace/vio/admin"/>
+            <parameter name="OUTPUT_DIRECTORY" value="/var/docs/vio/admin"/>
+            <parameter name="HTML_OUTPUT" value="/var/docs/vio/admin" />
+            <parameter name="EXCLUDE" value="/home/nikelin/workspace/vio/admin/library"/>
+            <parameters-set id="doxygen"/>
+        </parameters>
+    </project>
+
+    <project name="helpers">
+        <engine>doxygen</engine>
+        <parameters>
+            <parameter name="PROJECT_NAME" value="WebCam Site Helpers Collection"/>
+            <parameter name="INPUT" value="/home/nikelin/workspace/vio/helpers"/>
+            <parameter name="OUTPUT_DIRECTORY" value="/var/docs/vio/helpers"/>
+            <parameter name="HTML_OUTPUT" value="/var/docs/vio/helpers" />
+            <parameters-set id="doxygen"/>
+        </parameters>
+    </project>
+
+    <project name="media-client">
+        <engine>asdoc</engine>
+        <parameters>
+            <parameter name="-compiler.source-path" value="/home/nikelin/workspace/vio/as3client/src"/>
+            <parameter name="-output" value="/var/docs/vio/media-client"/>
+            <parameter name="-target-player" value="10"/>
+            <parameter name="-doc-sources" value="/home/nikelin/workspace/vio/as3client/src/"/>
+        </parameters>
+    </project>
+</config>
