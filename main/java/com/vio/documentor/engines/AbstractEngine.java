@@ -67,17 +67,26 @@ public abstract class AbstractEngine implements IEngine {
 
     public void process() throws GenerationException {
         try {
-            Process process = Runtime.getRuntime().exec( this.generateExecFile().getAbsolutePath() );
+            final Process process = Runtime.getRuntime().exec( this.generateExecFile().getAbsolutePath() );
 
-            log.info("Documentation result returned: ");
-            BufferedReader returnReader = new BufferedReader( new InputStreamReader( process.getInputStream() ) );
-            String doxygenResponse = new String();
-            String line;
-            while( null != ( line = returnReader.readLine() )  ) {
-                doxygenResponse = doxygenResponse.concat( line ).concat("\n");
+            Thread readThread = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        log.info("Documentation result returned: ");
+                        BufferedReader returnReader = new BufferedReader( new InputStreamReader( process.getInputStream() ) );
+
+                        String line;
+                        while( null != ( line = returnReader.readLine() ) ) {
+                            log.info( line );
+                        }
+                    } catch ( Throwable e ) {
+                        log.error("Cannot read from input pipe", e);
+                    }
+                }
             };
 
-            log.info( doxygenResponse );
+            readThread.start();
         } catch ( Throwable e ) {
             log.error( e.getMessage(), e );
             throw new GenerationException();
@@ -85,7 +94,13 @@ public abstract class AbstractEngine implements IEngine {
     }
 
     protected File generateExecFile() throws IOException {
-        File execFile = new File( ( (Application) Registry.getApplication() ).getRootDir() + "/temp/" + this.getName() + "_exec.sh" );
+        File tempDir = new File( ( (Application) Registry.getApplication() ).getRootDir() + "/temp/" );
+        if ( !tempDir.exists() ) {
+            tempDir.mkdir();
+            tempDir.setWritable(true);
+        }
+
+        File execFile = new File( tempDir.getAbsolutePath() + "/" + this.getName() + "_exec.sh" );
         if ( !execFile.exists() ) {
             execFile.setWritable(true);
             execFile.setReadable(true);
