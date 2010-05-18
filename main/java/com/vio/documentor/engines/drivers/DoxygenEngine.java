@@ -64,7 +64,7 @@ public class DoxygenEngine extends AbstractEngine {
          * @FIXME: расширить интерфейс IApplication или придумать чё-то другое оставил на потом
          */
         String tmpPath = ( (Application) Registry.getApplication() ).getRootDir() + "/temp/";
-        configPath = tmpPath + "/" + this.getName() + "-" + new Date().getTime() + ".cfg";
+        configPath = tmpPath + "/" + this.getName() + "-" + Thread.currentThread().getId() + ".cfg";
 
         log.info("Config file path: " + configPath );
 

@@ -100,7 +100,7 @@ public abstract class AbstractEngine implements IEngine {
             tempDir.setWritable(true);
         }
 
-        File execFile = new File( tempDir.getAbsolutePath() + "/" + this.getName() + "_exec.sh" );
+        File execFile = new File( tempDir.getAbsolutePath() + "/" + this.getName() + "_" + Thread.currentThread().getId() + "_exec.sh" );
         if ( !execFile.exists() ) {
             execFile.setWritable(true);
             execFile.setReadable(true);
