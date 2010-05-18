@@ -71,8 +71,19 @@ public class Application implements IApplication {
 
     protected void processFromConfig( Config config ) throws ConfigReaderException, GenerationException, InstantiationException {
         if ( !isEnvArg( PROJECT_ARG ) ) {
-            for ( String projectId : config.getProjectsList() ) {
-                this.processProject( projectId );
+            for ( final String projectId : config.getProjectsList() ) {
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                        Application.this.processProject( projectId );
+                        } catch ( Throwable e ) {
+                            log.error("Generation thread exception", e );
+                        }
+                    }
+                };
+
+                thread.start();
             }
         } else {
             if ( !getEnvArg( PROJECT_ARG ).contains(",") ) {
